@@ -1,9 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
+
+const envFile = `envs/.env.${process.env.NODE_ENV ?? 'development'}`
 
 @Module({
-  imports: [],
+  imports: [ConfigModule.forRoot({
+      envFilePath: envFile,
+      isGlobal: true
+  })],
   controllers: [AppController],
   providers: [AppService],
 })
