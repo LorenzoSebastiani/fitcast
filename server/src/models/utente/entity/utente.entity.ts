@@ -1,5 +1,5 @@
 import { Ruolo } from "src/models/ruolo/entity/ruolo.entity";
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity({name: 'utente'})
 export class Utente {
@@ -31,10 +31,10 @@ export class Utente {
     @Column({type: 'varchar', nullable: false})
     password: string;
 
-    @Column({type: 'blob', nullable: true})
+    @Column({type: 'varchar', nullable: true})
     foto_profilo?: string;
 
-    @Column({type: 'text', nullable: true, length: 1000})
+    @Column({type: 'varchar', nullable: true, length: 1000})
     bio?: string;
 
     @Column({type: 'int', nullable: false, default: 0})
@@ -45,9 +45,9 @@ export class Utente {
 
     //? METADATI
 
-    @Column({type: 'timestamptz', nullable: false, default: Date.now()})
-    created_at: string;
+    @CreateDateColumn({type: 'timestamptz'})
+    created_at: Date;
 
-    @Column({type: 'timestamptz', nullable: false, default: Date.now()})
-    update_at: string;
+    @UpdateDateColumn({type: 'timestamptz'})
+    update_at: Date;
 }
