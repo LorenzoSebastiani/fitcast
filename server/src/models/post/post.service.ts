@@ -3,6 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Post } from "./entity/post.entity";
 import { Repository } from "typeorm";
 import { CreatePostDto } from "./dto/create-post.dto";
+import { PatchPostDto } from "./dto/patch-post.dto";
 
 @Injectable()
 export class PostService {
@@ -65,5 +66,10 @@ export class PostService {
             Logger.error('Errore nella creazione del post >> PostService/create: ', err);
             throw new HttpException('Errore', HttpStatus.BAD_REQUEST);
         }
+    }
+
+    //? PATCH
+    async patch(id: number, body: PatchPostDto) {
+        
     }
 }
