@@ -4,6 +4,7 @@ import { Utente } from "./entity/utente.entity";
 import { Repository } from "typeorm";
 import { CreateUtenteDto } from "./dto/create-utente.dto";
 import { PatchUtenteDto } from "./dto/patch-utente.dto";
+import * as bcrypt from 'bcrypt'
 
 @Injectable()
 export class UtenteService{
@@ -63,7 +64,9 @@ export class UtenteService{
                 throw new HttpException('Username già in uso', HttpStatus.CONFLICT);
             }
 
-            return await this.repository.save(body);
+            const hashed_password = await bcrypt.hash(body.password, 10)
+
+            return await this.repository.save({...body, password: hashed_password});
         } catch (err) {
             Logger.error('Errore nella creazione dell\'utente >> UtenteService/create: ', err);
             throw new HttpException('Errore', HttpStatus.BAD_REQUEST);

@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, UseGuards } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 import { UtenteService } from "./utente.service";
 import { CreateUtenteDto } from "./dto/create-utente.dto";
 import { AuthGuard } from "src/guards/auth.guard";
@@ -7,12 +7,13 @@ import { Roles } from "src/decorators/ruolo.decorator";
 import { RuoloEnum } from "src/enum/ruolo.enum";
 
 @ApiTags('Utenti')
-@Controller('api/')
+@Controller('')
 export class UtenteController {
     constructor(
         private readonly service: UtenteService,
     ) {}
 
+    @ApiBearerAuth('access-token')
     @UseGuards(AuthGuard)
     @Roles(RuoloEnum.AMMINISTRATORE, RuoloEnum.MODERATORE)
     @HttpCode(200)
@@ -21,6 +22,7 @@ export class UtenteController {
         return await this.service.findAll();
     }
 
+    @ApiBearerAuth('access-token')
     @UseGuards(AuthGuard)
     @Roles(RuoloEnum.AMMINISTRATORE, RuoloEnum.MODERATORE, RuoloEnum.UTENTE_REGISTRATO)
     @HttpCode(200)
@@ -35,6 +37,7 @@ export class UtenteController {
         return await this.service.create(body);
     }
 
+    @ApiBearerAuth('access-token')
     @UseGuards(AuthGuard)
     @Roles(RuoloEnum.AMMINISTRATORE, RuoloEnum.MODERATORE, RuoloEnum.UTENTE_REGISTRATO)
     @HttpCode(200)
@@ -43,6 +46,7 @@ export class UtenteController {
         return await this.service.patch(id, body);
     }
 
+    @ApiBearerAuth('access-token')
     @UseGuards(AuthGuard)
     @Roles(RuoloEnum.AMMINISTRATORE, RuoloEnum.MODERATORE)
     @HttpCode(204)

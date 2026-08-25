@@ -6,9 +6,12 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.setGlobalPrefix('api/')
+
   const config = new DocumentBuilder()
   .setTitle('Api Documentation')
   .setVersion('0.0.1')
+  .addBearerAuth({type: 'http', scheme: 'bearer', bearerFormat: 'JWT'}, 'access-token')
   .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);
