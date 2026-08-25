@@ -89,4 +89,16 @@ export class UtenteService{
             throw new HttpException('Errore', HttpStatus.BAD_REQUEST);
         }
     }
+
+    //! FUNCTION
+    async findByUsername(username: string) {
+        try {
+            return await this.repository.findOne({where: {
+                username: username
+            }})
+        } catch (err) {
+            Logger.error('Errore nella ricerca dell\'utente >> UtenteService/findByUsername: ', err);
+            throw new HttpException('Errore', HttpStatus.BAD_REQUEST);
+        }
+    }
 }
