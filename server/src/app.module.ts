@@ -7,6 +7,7 @@ import { RuoloModule } from './models/ruolo/ruolo.module';
 import { Ruolo } from './models/ruolo/entity/ruolo.entity';
 import { UtenteModule } from './models/utente/utente.module';
 import { Utente } from './models/utente/entity/utente.entity';
+import { AuthModule } from './models/auth/auth.module';
 
 const envFile = `envs/.env.${process.env.NODE_ENV ?? 'development'}`
 
@@ -26,7 +27,8 @@ const envFile = `envs/.env.${process.env.NODE_ENV ?? 'development'}`
     synchronize: true
   }), 
   RuoloModule,
-  UtenteModule
+  UtenteModule,
+  AuthModule
 ],
   controllers: [AppController],
   providers: [AppService],
