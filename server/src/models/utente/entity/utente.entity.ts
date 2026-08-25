@@ -9,12 +9,12 @@ export class Utente {
     //? RELAZIONI
     
     @ManyToOne(() => Ruolo,  (ruolo: Ruolo) => ruolo.id, {
-        nullable: false,
+        nullable: true,
         onDelete: 'RESTRICT',
-        onUpdate: 'CASCADE'
+        onUpdate: 'CASCADE',
     })
     @JoinColumn({name: 'id_ruolo'})
-    ruolo: Ruolo;
+    ruolo?: Ruolo;
 
     @Column({type: 'varchar', nullable: false, length: 50})
     nome: string;

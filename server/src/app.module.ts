@@ -13,8 +13,8 @@ const envFile = `envs/.env.${process.env.NODE_ENV ?? 'development'}`
 
 @Module({
   imports: [ConfigModule.forRoot({
-      envFilePath: envFile,
-      isGlobal: true
+    envFilePath: envFile,
+    isGlobal: true
   }),
   TypeOrmModule.forRoot({
     type: 'postgres',
@@ -24,13 +24,15 @@ const envFile = `envs/.env.${process.env.NODE_ENV ?? 'development'}`
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     entities: [Ruolo, Utente],
+    migrations: [`../db/migrations/*{.ts,.js}`],
+    migrationsRun: true,
     synchronize: true
-  }), 
-  RuoloModule,
-  UtenteModule,
-  AuthModule
-],
+  }),
+    RuoloModule,
+    UtenteModule,
+    AuthModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

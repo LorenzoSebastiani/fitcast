@@ -5,7 +5,8 @@ import { Ruolo } from "src/models/ruolo/entity/ruolo.entity";
 export class CreateUtenteDto{
     @ApiProperty()
     @IsNumber()
-    ruolo: Ruolo;
+    @IsOptional()
+    ruolo?: Ruolo;
 
     @ApiProperty()
     @IsString()
